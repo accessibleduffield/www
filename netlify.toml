@@ -1,4 +1,4 @@
 [build]
   publish = '_site/'
-  command = 'eleventy npx tailwindcss build ./src/css/tailwind.css -o ./_site/assets/css/tailwind.css'
+  command = 'npm run build'
   environment = { ELEVENTY_ENV = 'production' } # to enable Eleventy to know the environment
