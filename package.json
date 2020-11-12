@@ -1,23 +1,25 @@
 {
-  "name": "webroot",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://accessibleduffield@github.com/accessibleduffield/www.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/accessibleduffield/www/issues"
-  },
-  "homepage": "https://github.com/accessibleduffield/www#readme",
-  "devDependencies": {
-    "@11ty/eleventy": "^0.11.1"
-  }
+	"name": "accessible-duffield",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "npm run eleventy && npm run tailwind",
+		"eleventy": "npx @11ty/eleventy",
+		"tailwind": "npx tailwindcss build ./src/css/tailwind.css -o ./assets/css/tailwind.css",
+		"tailwind:dev": "npx tailwindcss build ./src/css/tailwind.css -o ./assets/css/tailwind.css",
+		"watch": "npx @11ty/eleventy --serve --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://accessibleduffield@github.com/accessibleduffield/www.git"
+	},
+	"keywords": [],
+	"author": "Richard Herbert",
+	"homepage": "https://github.com/accessibleduffield/www#readme",
+	"devDependencies": {
+		"@11ty/eleventy": "^0.11.1",
+		"dotenv": "^8.2.0",
+		"tailwindcss": "^1.9.6"
+	}
 }
