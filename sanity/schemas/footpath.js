@@ -39,15 +39,12 @@ export default {
 			,name: 'comment'
 			,type: 'text'
 		}
-
 		,{
 			title: 'Photos'
 			,name: 'footpathPhotos'
 			,type: 'array'
 			,of: [ { type: 'footpathPhotograph' } ]
 		}
-
-
 	]
 	,preview: {
 		select: {
