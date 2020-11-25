@@ -5,10 +5,10 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "npm run eleventy && npm run tailwind",
-		"eleventy": "npx @11ty/eleventy",
+		"eleventy": "npx @11ty/eleventy --input ./src/ ",
 		"tailwind": "NODE_ENV=production npx tailwindcss build ./src/css/tailwind.css --output ./_site/assets/css/tailwind.css",
-		"tailwind:dev": "npx tailwindcss build ./src/css/tailwind.css --output ./assets/css/tailwind.css",
-		"watch": "npx @11ty/eleventy --serve --watch"
+		"tailwind:dev": "npx tailwindcss build ./src/css/tailwind.css --output ./src/assets/css/tailwind.css",
+		"watch": "npx @11ty/eleventy --input ./src/ --serve --watch"
 	},
 	"repository": {
 		"type": "git",
@@ -24,6 +24,6 @@
 	},
 	"dependencies": {
 		"autoprefixer": "^10.0.2",
-		"postcss": "^8.1.7"
+		"postcss": "^8.1.10"
 	}
 }
