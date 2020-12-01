@@ -1,0 +1,20 @@
+
+
+{%- comment -%}
+{{ footpaths | dump }}
+{%- endcomment -%}
+
+<h1 class="text-3xl font-bold">Footpaths</h1>
+
+<h2>The following footpaths can be found in Duffield:</h2>
+
+<ul>
+	{%- for footpath in footpaths -%}
+		<li><a href="footpaths/{{ footpath.number | slug }}" class="underline">{{ footpath.number }} from {{ footpath.from }} to {{ footpath.to }}</a></li>
+	{% endfor %}
+</ul>
+
+<img src="assets/img/logo.svg" class="p-8 m-5 mx-auto bg-white border-2 border-gray-400 border-solid shadow-2xl sm:w-1/2 rounded-3xl" alt="Accessible Duffield logo" title="Accessible Duffield">
+
+<p class="text-xs text-center sm:text-base md:text-xl">Better Accessibility | Better Lives | Better Duffield</p>
+
