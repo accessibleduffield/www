@@ -14,22 +14,40 @@ module.exports = async function() {
 
 	return await client.fetch( query, {} )
 		.then( response => {
+
+
+// console.log({response});
+
 			return response.map( record => {
-				let attributes = record.footpathAttributes.map( attribute => {
-					let property = attribute.property;
+				// console.log( { record } );
+				// console.log( record.footpathAttributes );
+				// console.log( record.footpathAttributes == undefined );
 
-console.log( { property } );
+				if( record.footpathAttributes == undefined ) {
+					var attributes = [ {} ];
+					// console.log({attributes})
+				} else {
+					var attributes = record.footpathAttributes.map( attribute => {
+						let property = attribute.property;
 
-					return {
-						available: attribute.yesNo
-						,comment: attribute.comment
-					};
-				} );
+	// console.log( { property } );
+
+						return {
+							available: attribute.yesNo
+							,comment: attribute.comment
+						};
+					} );
+					// console.log({attributes})
+				}
+
+				// console.log({attributes})
 
 				return {
 					number: record.footpathNumber
 					,from: record.fromLocation
 					,to: record.toLocation
+					,auditor: record.auditor
+					,auditDate: record.auditDate
 					,attributes: attributes
 				};
 			} );
