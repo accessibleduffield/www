@@ -10,37 +10,35 @@ const client = sanityClient( {
 } );
 
 module.exports = async function() {
-	const query = '*[ _type == "footpath" ]'
+	// const query = '*[ _type == "footpath" ]{ ... }'
+	// const query = '*[ _type == "footpath" ]{ ..., footpathAttributes-> }'
+	// const query = '*[ _type == "footpath" ]'
+	// const query = '*[ _type == "footpath" ]{ ..., images[] ->{..., "asset": footpathPhotos.asset->{path,url}}, properties[] }'
+	// const query = '*[ _type == "footpath" ]{ ..., "props": *[_type == "footpathProperty" ]{ _id, title } }'
+	const query = '*[ _type == "footpath" ] { _id, footpathNumber, fromLocation, toLocation, auditDate, auditor, comment, "attributes": footpathAttributes[] { "title": property->title, yesNo, comment }, "photos": footpathPhotos[] { title, "url": asset->url, comment } }'
 
 	return await client.fetch( query, {} )
 		.then( response => {
-
-
-// console.log({response});
-
 			return response.map( record => {
-				// console.log( { record } );
-				// console.log( record.footpathAttributes );
-				// console.log( record.footpathAttributes == undefined );
-
-				if( record.footpathAttributes == undefined ) {
-					var attributes = [ {} ];
-					// console.log({attributes})
-				} else {
-					var attributes = record.footpathAttributes.map( attribute => {
-						let property = attribute.property;
-
-	// console.log( { property } );
-
+				if( record.attributes != undefined ) {
+					var attributes = record.attributes.map( attribute => {
 						return {
-							available: attribute.yesNo
-							,comment: attribute.comment
+							name: attribute.title
+							,available: attribute.yesNo
+							,comment: attribute.comment == undefined ? '' : attribute.comment
 						};
 					} );
-					// console.log({attributes})
 				}
 
-				// console.log({attributes})
+				if( record.photos != undefined ) {
+					var photos = record.photos.map( photo => {
+						return {
+							title: photo.title
+							,url: photo.url
+							,comment: photo.comment == undefined ? '' : photo.comment
+						};
+					} );
+				}
 
 				return {
 					number: record.footpathNumber
@@ -49,6 +47,7 @@ module.exports = async function() {
 					,auditor: record.auditor
 					,auditDate: record.auditDate
 					,attributes: attributes
+					,photos: photos
 				};
 			} );
 		} )

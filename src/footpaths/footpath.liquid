@@ -6,53 +6,170 @@ pagination:
 permalink: "footpaths/{{ footpath.number | slug }}/"
 ---
 
-<h1>Footpath Detail</h1>
+<div class="overflow-hidden bg-white shadow sm:rounded-lg">
+	<div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
+		<div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
+			<div class="mt-4 ml-4">
+				<h3 class="text-3xl font-bold leading-6 text-gray-900">Footpath: {{ footpath.number }}</h3>
 
-Footpath: {{ footpath.number }} from {{ footpath.from }} to {{ footpath.to }}
-Audit date: {{ footpath.audit }}
-Auditor: {{ footpath.auditor }}
+				<p class="mt-1 text-sm text-gray-500">From {{ footpath.from }} to {{ footpath.to }}</p>
+			</div>
 
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="flex flex-col">
-	<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-		<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-			<div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-				<table class="min-w-full divide-y divide-gray-200">
-					<thead>
-						<tr>
-							<th scope="col"
-								class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
-								Attribute
-							</th>
-							<th scope="col"
-								class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
-								Available
-							</th>
-							<th scope="col"
-								class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
-								Comment
-							</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						{%- for attribute in footpath.attributes -%}
-							<tr class="{%- cycle 'bg-white', 'bg-gray-50' -%}">
-								<td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-									Jane Cooper
-								</td>
-								<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-									{{ attribute.available }}
-								</td>
-								<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-									{{ attribute.comment }}
-								</td>
-							</tr>
-
-						{% endfor %}
-					</tbody>
-				</table>
+			<div class="flex-shrink-0 mt-4 ml-4">
+				<a href="footpaths/">
+					<button type="button"
+						class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-lime-600 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500">
+						Back to Footpaths
+					</button>
+				</a>
 			</div>
 		</div>
 	</div>
+
+	<div class="border-t border-gray-200">
+		<dl>
+			<div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+				<dt class="text-sm font-medium text-gray-500">
+					Auditor
+				</dt>
+
+				<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+					{{ footpath.auditor }}
+				</dd>
+			</div>
+
+			{%- if footpath.auditDate -%}
+				<div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500">
+						Audit Date
+					</dt>
+
+					<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+						{{ footpath.auditDate | date: '%A, %e %B, %Y' }}
+					</dd>
+				</div>
+			{% endif %}
+
+
+			{% if footpath.attributes %}
+				<div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500">
+						Attributes
+					</dt>
+
+					<dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+						<div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+							<table class="min-w-full divide-y divide-gray-200">
+								<thead>
+									<tr>
+										<th scope="col"
+											class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
+											Attribute
+										</th>
+										<th scope="col"
+											class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
+											Available
+										</th>
+										<th scope="col"
+											class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
+											Comment
+										</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									{%- for attribute in footpath.attributes -%}
+										<tr class="{%- cycle 'bg-white', 'bg-gray-50' -%}">
+											<td class="px-6 py-4 text-sm font-medium text-gray-900 align-top whitespace-nowrap">
+												{{ attribute.name }}
+											</td>
+
+											<td class="px-6 py-4 text-sm text-gray-500 align-top whitespace-nowrap">
+												{{ attribute.available }}
+											</td>
+
+											<td class="px-6 py-4 text-sm text-gray-500 align-top">
+												{{ attribute.comment }}
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</dd>
+				</div>
+			{% endif %}
+
+			{% if footpath.photos %}
+			<div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+				<dt class="text-sm font-medium text-gray-500">
+					Photographs
+				</dt>
+
+				<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+					<ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+						{%- for photo in footpath.photos -%}
+							<li class="flex flex-col col-span-1 text-center bg-white divide-y divide-gray-200 rounded-lg shadow">
+								<div class="flex flex-col flex-1 p-8">
+									<img class="flex-shrink-0 object-fill mx-auto bg-black"
+										src="{{ photo.url }}"
+										alt="{{ photo.title }}">
+
+										<h3 class="mt-6 text-sm font-medium text-gray-900">{{ photo.title }}</h3>
+
+									<dl class="flex flex-col justify-between flex-grow mt-1">
+										<dt class="sr-only">Title</dt>
+										<dd class="text-sm text-gray-500">{{ photo.comment }}</dd>
+										<!-- <dt class="sr-only">Role</dt>
+										<dd class="mt-3">
+											<span class="px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full">Admin</span>
+										</dd> -->
+									</dl>
+								</div>
+
+								<!-- <div>
+									<div class="flex -mt-px divide-x divide-gray-200">
+										<div class="flex flex-1 w-0">
+											<a href="#"
+												class="relative inline-flex items-center justify-center flex-1 w-0 py-4 -mr-px text-sm font-medium text-gray-700 border border-transparent rounded-bl-lg hover:text-gray-500">
+												<svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+													fill="currentColor" aria-hidden="true">
+													<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+													<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+												</svg>
+												<span class="ml-3">Email</span>
+											</a>
+										</div>
+
+										<div class="flex flex-1 w-0 -ml-px">
+											<a href="#"
+												class="relative inline-flex items-center justify-center flex-1 w-0 py-4 text-sm font-medium text-gray-700 border border-transparent rounded-br-lg hover:text-gray-500">
+												<svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+													fill="currentColor" aria-hidden="true">
+													<path
+														d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+												</svg>
+												<span class="ml-3">Call</span>
+											</a>
+										</div>
+									</div>
+								</div> -->
+							</li>
+						{% endfor %}
+					</ul>
+				</dd>
+			</div>
+			{% endif %}
+		</dl>
+	</div>
 </div>
+
+
+<!--
+<h1 class="mb-3 text-3xl font-bold">Footpath Detail</h1>
+
+<p>Footpath: {{ footpath.number }} from {{ footpath.from }} to {{ footpath.to }}</p>
+<p>Auditor: {{ footpath.auditor }}</p>
+{%- if footpath.auditDate -%}<p>Audit date: {{ footpath.auditDate | date: '%A, %e %B, %Y' }}</p>{% endif %}
+-->
+
