@@ -1,4 +1,5 @@
 const fs = require( 'fs' );
+const pluginTailwind = require( '@jamshop/eleventy-plugin-tailwind' );
 
 module.exports = function( eleventyConfig ) {
 	eleventyConfig.setQuietMode( true );
@@ -9,6 +10,12 @@ module.exports = function( eleventyConfig ) {
 
 	eleventyConfig.addFilter( 'dump', function( anything ) {
 		console.log( 'dump:', anything );
+	} );
+
+	eleventyConfig.addPlugin( pluginTailwind, {
+		entry: 'src/css/tailwind.css',
+		output: '_site/assets/css/tailwind.css',
+		inputDir: 'site'
 	} );
 
 	eleventyConfig.setBrowserSyncConfig( {
