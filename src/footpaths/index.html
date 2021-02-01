@@ -8,13 +8,13 @@
 			</div>
 		</div>
 
-
+{% comment %}
 		<div class="mt-4 overflow-hidden bg-gray-200 h-96">
 
-			<iframe src="https://www.rowmaps.com/onlymap.php?place=&map=OSM&lat=52.976&lon=1.486&lonew=W&width=1384&height=1200&zoom=15"
+			<!-- <iframe src="https://www.rowmaps.com/onlymap.php?place=&map=OSM&lat=52.976&lon=1.486&lonew=W&width=1384&height=1200&zoom=15"
 			frameborder="0" width="1392" height="1211" class="-ml-40">
 	   			unable to display the map because your browser does not support iframes
-			</iframe>
+			</iframe> -->
 
 
 			<!-- <iframe src="https://www.rowmaps.com/onlymap.php?place=&map=OSM&lat=52.98071669216902&lon=1.4882878112792541&lonew=W&width=1100&height=800&zoom=15"
@@ -22,6 +22,7 @@
 			unable to display the map because your browser does not support iframes
 			</iframe> -->
 		</div>
+{% endcomment %}
 
 
 
@@ -29,24 +30,56 @@
 
 		<!-- <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5579986572265627,52.95148215077131,-1.462984085083008,53.016125774226836&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=14/52.9838/-1.5105">View Larger Map</a></small> -->
 
-		<!-- <div id="mapid" class="mt-4 h-96"></div>
-
-		<script src="/assets/data/Rights_Of_Way_OpenData.js" type="text/javascript"></script>
+		<div id="map" class="mt-4 h-96">
+			<p>some words</p>
+		</div>
 
 		<script>
-			var mymap = L.map( 'mapid' ).setView( [ 52.986, -1.489 ], 15 );
+			var footpathMap = L.map( 'map' ).setView( [ 52.984, -1.489 ], 13 );
 
-			L.tileLayer( 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-				maxZoom: 18,
-				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-					'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1
-			} ).addTo( mymap );
+			L.tileLayer(
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				{
+					attribution: 'Map Tiles: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, CC-By-SA. Rights of Way: &copy; &amp; Database Right <a href="https://www.derbyshire.gov.uk/leisure/countryside/access/rights-of-way/downloads/public-rights-of-way-digital-data.aspx">Derbyshire County Council</a> &amp; Ordnance Survey, OGL3'
+				}
+			).addTo( footpathMap );
 
-			// L.geoJSON( rightsOfWay ).addTo( mymap );
-		</script> -->
+// boundary from https://osm-boundaries.com/
+			fetch( '/assets/data/duffield-boundary.geojson' )
+				.then( response => response.json() )
+				.then( data => L.geoJSON(
+					data,
+					{
+						style: function( feature ) {
+							return {
+								weight : 2.0,
+								color: '#C87702',
+								opacity : 1.0,
+								fill : '#8b01c6',
+								fillOpacity : 0.1,
+							};
+						}
+					}
+				).addTo( footpathMap ) );
+
+// footpaths https://osm.mathmos.net/prow/progress/derbs/amber-valley/duffield.geojson
+			fetch( '/assets/data/duffield.geojson' )
+				.then( response => response.json() )
+				.then( data => L.geoJSON(
+					data,
+					{
+						style: function( feature ) {
+							return {
+								weight : 2.0,
+								color: '#8b01c6',
+								opacity : 1.0,
+								fill : 0,
+								fillOpacity : 0,
+							};
+						}
+					}
+				).addTo( footpathMap ) );
+		</script>
 	</div>
 
 	<ul class="divide-y divide-gray-200">
