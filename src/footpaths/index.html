@@ -30,9 +30,7 @@
 
 		<!-- <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5579986572265627,52.95148215077131,-1.462984085083008,53.016125774226836&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=14/52.9838/-1.5105">View Larger Map</a></small> -->
 
-		<div id="map" class="mt-4 h-96">
-			<p>some words</p>
-		</div>
+		<div id="map" class="mt-4 h-96"></div>
 
 		<script>
 			var footpathMap = L.map( 'map' ).setView( [ 52.984, -1.489 ], 13 );
@@ -76,6 +74,22 @@
 								fill : 0,
 								fillOpacity : 0,
 							};
+						},
+
+						onEachFeature: function(feature, layer) {
+							var links=[];
+
+							feature.properties.name.split('|').forEach(function(name) {
+								var fparish = name.toLowerCase().replace(/& /g, '').replace(/ /g, '-').replace(/[',()]/g,'');
+
+								if (fparish != 'duffield') {
+									links.push('<a href="/footpath/' + fparish + '/">' + name.replace(/ /g,'&nbsp;') + '</a>');
+								}
+							} );
+
+							if (links.length>0) {
+								layer.bindPopup(links.join("<br />"));
+							}
 						}
 					}
 				).addTo( footpathMap ) );
