@@ -77,18 +77,14 @@
 						},
 
 						onEachFeature: function(feature, layer) {
-							var links=[];
+							var links = [];
 
-							feature.properties.name.split('|').forEach(function(name) {
-								var fparish = name.toLowerCase().replace(/& /g, '').replace(/ /g, '-').replace(/[',()]/g,'');
-
-								if (fparish != 'duffield') {
-									links.push('<a href="/footpath/' + fparish + '/">' + name.replace(/ /g,'&nbsp;') + '</a>');
-								}
+							feature.properties.number.split( '|' ).forEach( function( footpath ) {
+								links.push( `<a href="/footpaths/${ footpath } /">Footpath ${ footpath }</a>` );
 							} );
 
-							if (links.length>0) {
-								layer.bindPopup(links.join("<br />"));
+							if( links.length>0 ) {
+								layer.bindPopup( links.join( '<br />' ) );
 							}
 						}
 					}
