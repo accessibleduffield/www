@@ -12,11 +12,11 @@ module.exports = function( eleventyConfig ) {
 		console.log( 'dump:', anything );
 	} );
 
-	eleventyConfig.addPlugin( pluginTailwind, {
-		entry: 'src/css/tailwind.css',
-		output: '_site/assets/css/tailwind.css',
-		inputDir: 'site'
-	} );
+	// eleventyConfig.addPlugin( pluginTailwind, {
+	// 	entry: 'src/css/tailwind.css',
+	// 	output: '_site/assets/css/tailwind.css',
+	// 	inputDir: '_site'
+	// } );
 
 	eleventyConfig.setBrowserSyncConfig( {
 		ui: false
