@@ -15,7 +15,7 @@ module.exports = async function() {
 	// const query = '*[ _type == "footpath" ]'
 	// const query = '*[ _type == "footpath" ]{ ..., images[] ->{..., "asset": footpathPhotos.asset->{path,url}}, properties[] }'
 	// const query = '*[ _type == "footpath" ]{ ..., "props": *[_type == "footpathProperty" ]{ _id, title } }'
-	const query = '*[ _type == "footpath" ] { _id, footpathNumber, fromLocation, toLocation, auditDate, auditor, comment, "attributes": footpathAttributes[] { "title": property->title, yesNo, comment }, "photos": footpathPhotos[] { title, "url": asset->url, comment } }'
+	const query = '*[ _type == "footpath" ] | order(footpathNumber) { _id, footpathNumber, fromLocation, toLocation, auditDate, auditor, comment, "attributes": footpathAttributes[] { "title": property->title, yesNo, comment }, "photos": footpathPhotos[] { title, "url": asset->url, comment } }'
 
 	return await client.fetch( query, {} )
 		.then( response => {
