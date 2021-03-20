@@ -46,6 +46,13 @@ export default {
 			,of: [ { type: 'footpathPhotograph' } ]
 		}
 	]
+	,orderings: [ {
+		title: 'Footpath',
+		name: 'footpathNumberOrder',
+		by: [ {
+			field: 'footpathNumber', direction: 'asc'
+		} ]
+	} ]
 	,preview: {
 		select: {
 			from: 'fromLocation'
