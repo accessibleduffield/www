@@ -9,6 +9,11 @@ export default {
 			,type: 'string'
 		}
 		,{
+			title: 'Sub-title'
+			,name: 'subtitle'
+			,type: 'string'
+		}
+		,{
 			title: 'From location'
 			,name: 'fromLocation'
 			,type: 'string'
