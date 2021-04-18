@@ -1,5 +1,4 @@
 const fs = require( 'fs' );
-const pluginTailwind = require( '@jamshop/eleventy-plugin-tailwind' );
 
 module.exports = function( eleventyConfig ) {
 	eleventyConfig.setQuietMode( true );
