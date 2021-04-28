@@ -3,45 +3,19 @@ title: Footpaths
 description:
 ---
 
-<div class="content">
-	<h1>{{ title }}</h1>
-
-	<p>Our volunteers have assessed the public rights of way in the built-up areas of Duffield. Access has been assessed, noted and photographed. The rural field paths will be audited some time in the future.</p>
-</div>
-
-
-
 <div class="w-11/12 p-5 mx-auto mt-5 mb-5 bg-white rounded-xl sm:text-base md:text-xl">
 	<div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
 		<div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
 			<div class="mt-4 ml-4">
-				<h3 class="text-3xl font-bold leading-6 text-gray-900">Audit of footpaths in Duffield</h3>
+				<h1>{{ title }}</h1>
+
+				<p>Our volunteers have assessed the public rights of way in the built-up areas of Duffield. Access has been assessed, noted and photographed. The rural field paths will be audited some time in the future.</p>
+
+				<h2>Audit of footpaths in Duffield</h3>
 
 				<p class="mt-1 text-sm text-gray-500">The following footpaths can be found in Duffield</p>
 			</div>
 		</div>
-
-{% comment %}
-		<div class="mt-4 overflow-hidden bg-gray-200 h-96">
-
-			<!-- <iframe src="https://www.rowmaps.com/onlymap.php?place=&map=OSM&lat=52.976&lon=1.486&lonew=W&width=1384&height=1200&zoom=15"
-			frameborder="0" width="1392" height="1211" class="-ml-40">
-	   			unable to display the map because your browser does not support iframes
-			</iframe> -->
-
-
-			<!-- <iframe src="https://www.rowmaps.com/onlymap.php?place=&map=OSM&lat=52.98071669216902&lon=1.4882878112792541&lonew=W&width=1100&height=800&zoom=15"
-			frameborder="0" width="1392" height="1211">
-			unable to display the map because your browser does not support iframes
-			</iframe> -->
-		</div>
-{% endcomment %}
-
-
-
-
-
-		<!-- <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5579986572265627,52.95148215077131,-1.462984085083008,53.016125774226836&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=14/52.9838/-1.5105">View Larger Map</a></small> -->
 
 		<div id="map" class="mt-4 h-96"></div>
 
@@ -103,71 +77,49 @@ description:
 					}
 				).addTo( footpathMap ) );
 		</script>
-	</div>
 
-	<ul class="divide-y divide-gray-200">
-		{%- for footpath in footpaths -%}
-			<li>
-				<a href="footpaths/{{ footpath.number | slug }}" class="block hover:bg-gray-50">
-					<div class="flex items-center px-4 py-4 sm:px-6">
-						<div class="flex items-center flex-1 min-w-0">
-							<!--{%- comment -%} <div class="flex-shrink-0">
-								<img class="w-12 h-12 rounded-full"
-									src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-									alt="">
-							</div> {%- endcomment -%}-->
+		<ul class="divide-y divide-gray-200">
+			{%- for footpath in footpaths -%}
+				<li>
+					<a href="footpaths/{{ footpath.number | slug }}" class="block hover:bg-gray-50">
+						<div class="flex items-center px-4 py-4 sm:px-6">
+							<div class="flex items-center flex-1 min-w-0">
+								<div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+									<div>
+										<p class="text-sm font-medium truncate text-lime-700">Footpath {{ footpath.number }}</p>
 
-							<div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
-								<div>
-									<p class="text-sm font-medium truncate text-lime-700">Footpath {{ footpath.number }}</p>
-
-									<p class="flex items-center mt-2 text-sm text-gray-500">
-										From {{ footpath.from }} to {{ footpath.to }}
-									</p>
-								</div>
-<!-- <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.583833694458008%2C52.95148215077131%2C-1.4156055450439455%2C53.016125774226836&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=14/52.9838/-1.4997">View Larger Map</a></small> -->
-
-
-<!-- <iframe src="https://www.rowmaps.com/onlymap.php?place=&amp;map=OSM&amp;lat=52.98071669216902&amp;lon=1.4882878112792541&amp;lonew=W&amp;width=1384&amp;height=1203&amp;zoom=15&amp;legend=&amp;naptan="
-        frameborder="0" width="1392" height="1211">
-   unable to display the map because your browser does not support iframes
-</iframe> -->
-								{% if footpath.auditor %}
-									<div class="hidden md:block">
-										<div>
-											<p class="text-sm text-gray-900">
-												Audited by {{ footpath.auditor }}
-
-												{% if footpath.auditDate %}
-													on <time datetime="{{ footpath.auditDate }}">{{ footpath.auditDate | date: '%A, %e %B, %Y' }}</time>
-												{% endif %}
-											</p>
-											<!--{%- comment -%} <p class="flex items-center mt-2 text-sm text-gray-500">
-												<svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-													xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-													aria-hidden="true">
-													<path fill-rule="evenodd"
-														d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-														clip-rule="evenodd" />
-												</svg>
-												Completed phone screening
-											</p> {%- endcomment -%}-->
-										</div>
+										<p class="flex items-center mt-2 text-sm text-gray-500">
+											From {{ footpath.from }} to {{ footpath.to }}
+										</p>
 									</div>
-								{% endif %}
+
+									{% if footpath.auditor %}
+										<div class="hidden md:block">
+											<div>
+												<p class="text-sm text-gray-900">
+													Audited by {{ footpath.auditor }}
+
+													{% if footpath.auditDate %}
+														on <time datetime="{{ footpath.auditDate }}">{{ footpath.auditDate | date: '%A, %e %B, %Y' }}</time>
+													{% endif %}
+												</p>
+											</div>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+
+							<div>
+								<svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+									fill="currentColor" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+								</svg>
 							</div>
 						</div>
-
-						<div>
-							<svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-								fill="currentColor" aria-hidden="true">
-								<path fill-rule="evenodd"
-									d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-							</svg>
-						</div>
-					</div>
-				</a>
-			</li>
-		{% endfor %}
-	</ul>
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
 </div>
