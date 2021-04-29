@@ -4,6 +4,7 @@ module.exports = {
 	mode: 'jit',
 	purge: [
 		'./src/**/*.html'
+		,'./src/**/*.liquid'
 		,'./src/_includes/**/*.html'
 ]
 	,theme: {
