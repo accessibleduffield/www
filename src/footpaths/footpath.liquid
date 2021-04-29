@@ -33,7 +33,7 @@ permalink: "footpaths/{{ footpath.number | slug }}/"
 				</dt>
 
 				<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-					{{ footpath.auditor }}
+					{%- if footpath.auditor -%}{{ footpath.auditor}}{%- else -%}none{%- endif -%}
 				</dd>
 			</div>
 
