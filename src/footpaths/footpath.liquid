@@ -51,56 +51,29 @@ permalink: "footpaths/{{ footpath.number | slug }}/"
 
 
 			{% if footpath.attributes %}
-				<div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+				<div class="px-4 py-5 bg-gray-50 bg-color-red-100 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 					<dt class="text-sm font-medium text-gray-500">
 						Attributes
 					</dt>
 
-					<dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
-						<div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-							<table class="min-w-full divide-y divide-gray-200">
-								<thead>
-									<tr>
-										<th scope="col"
-											class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
-											Attribute
-										</th>
-										<th scope="col"
-											class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
-											Available
-										</th>
-										<th scope="col"
-											class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
-											Comment
-										</th>
-									</tr>
-								</thead>
+					<dd class="text-sm text-gray-900 sm:col-span-2">
+						{%- for attribute in footpath.attributes -%}
+							<div class="mb-1"><span class="font-medium text-gray-500">{{ attribute.name }}:</span> {{ attribute.available }}</div>
 
-								<tbody>
-									{%- for attribute in footpath.attributes -%}
-										<tr class="{%- cycle 'bg-white', 'bg-gray-50' -%}">
-											<td class="px-6 py-4 text-sm font-medium text-gray-900 align-top whitespace-nowrap">
-												{{ attribute.name }}
-											</td>
+							{%- if attribute.comment != '' -%}
+								<div><span class="font-medium text-gray-500">Comments:</span> {{ attribute.comment }}</div>
+							{%- endif -%}
 
-											<td class="px-6 py-4 text-sm text-gray-500 align-top whitespace-nowrap">
-												{{ attribute.available }}
-											</td>
-
-											<td class="px-6 py-4 text-sm text-gray-500 align-top">
-												{{ attribute.comment }}
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
+							{%- if forloop.last == false -%}
+								<div class="w-full mt-5 mb-5 border-t border-gray-300"></div>
+							{%- endif -%}
+						{% endfor %}
 					</dd>
 				</div>
 			{% endif %}
 
 			{% if footpath.photos %}
-			<div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+			<div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 				<dt class="text-sm font-medium text-gray-500">
 					Photographs
 				</dt>
