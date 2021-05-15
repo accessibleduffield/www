@@ -7,20 +7,19 @@ module.exports = function( eleventyConfig ) {
 	eleventyConfig.addPassthroughCopy( './src/assets/' );
 	eleventyConfig.addPassthroughCopy( './src/robots.txt' );
 
+	eleventyConfig.addWatchTarget( './tailwind.css' );
+	eleventyConfig.addWatchTarget( './tailwind.config.js' );
+	eleventyConfig.addWatchTarget( './postcss.config.js' );
+
+	eleventyConfig.setWatchThrottleWaitTime( 100 );
+
 	eleventyConfig.addFilter( 'dump', function( anything ) {
 		console.log( 'dump:', anything );
 	} );
 
-	// eleventyConfig.addPlugin( pluginTailwind, {
-	// 	entry: 'src/css/tailwind.css',
-	// 	output: '_site/assets/css/tailwind.css',
-	// 	inputDir: '_site'
-	// } );
-
 	eleventyConfig.setBrowserSyncConfig( {
 		ui: false
 		,ghostMode: false
-		,logLevel: 'silent'
 		,callbacks: {
 			ready: function ( err, bs ) {
 				bs.addMiddleware( "*", ( req, res ) => {
