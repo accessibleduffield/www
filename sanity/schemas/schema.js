@@ -10,6 +10,7 @@ import footpathProperty from './footpathProperty'
 import footpathPhotograph from './footpathPhotograph'
 
 import venue from './venues/venue'
+import venueType from './venues/venueType'
 import venueAttribute from './venues/attribute'
 import venueProperty from './venues/property'
 import venuePropertySection from './venues/propertySection'
@@ -28,6 +29,7 @@ export default createSchema( {
 		,footpathPhotograph
 
 		,venue
+		,venueType
 		,venueAttribute
 		,venuePropertySection
 		,venueProperty

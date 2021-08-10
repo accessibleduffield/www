@@ -9,6 +9,12 @@ export default {
 			,type: 'string'
 		}
 		,{
+			title: 'Venue type'
+			,name: 'venueType'
+			,type: 'reference'
+			,to: [ { type: 'venueType' } ]
+		}
+		,{
 			title: 'Unique reference'
 			,name: 'slug'
 			,type: 'slug'
