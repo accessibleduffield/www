@@ -15,16 +15,18 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/base": "^2.0.9",
-    "@sanity/components": "^2.0.9",
-    "@sanity/core": "^2.0.9",
-    "@sanity/default-layout": "^2.0.9",
-    "@sanity/default-login": "^2.0.9",
-    "@sanity/desk-tool": "^2.0.9",
-    "@sanity/vision": "^2.0.9",
+    "@sanity/base": "^2.13.1",
+    "@sanity/components": "^2.13.0",
+    "@sanity/core": "^2.13.1",
+    "@sanity/dashboard": "^2.13.1",
+    "@sanity/default-layout": "^2.13.1",
+    "@sanity/default-login": "^2.13.1",
+    "@sanity/desk-tool": "^2.13.1",
+    "@sanity/vision": "^2.13.1",
     "prop-types": "^15.7",
     "react": "^17.0",
     "react-dom": "^17.0",
+    "sanity-plugin-dashboard-widget-netlify": "^1.1.0",
     "sanity-plugin-order-documents": "^0.0.11"
   },
   "devDependencies": {}

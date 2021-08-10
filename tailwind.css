@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content {
+	@apply w-11/12 p-5 mx-auto mt-5 mb-5 bg-white bg-opacity-50 rounded-xl sm:text-base md:text-xl;
+}
+
+h1 {
+	@apply mb-5 text-3xl font-bold;
+}
+
+h2 {
+	@apply mb-2 text-xl font-bold;
+}
+
+p {
+	@apply mb-5;
+}
+
+th {
+	@apply text-left;
+}
+
+td {
+	@apply py-1 pr-5;
+}

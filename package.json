@@ -4,11 +4,12 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"build": "npm run eleventy && npm run tailwind",
-		"eleventy": "npx @11ty/eleventy --input ./src/ ",
-		"tailwind": "NODE_ENV=production npx tailwindcss build ./src/css/tailwind.css --output ./_site/assets/css/tailwind.css",
-		"tailwind:dev": "npx tailwindcss build ./src/css/tailwind.css --output ./src/assets/css/tailwind.css",
-		"watch": "npx @11ty/eleventy --input ./src/ --serve --watch"
+		"build": "rm -rf ./_site && npm run build:eleventy && npm run build:tailwind",
+		"build:eleventy": "npx @11ty/eleventy --input ./src/",
+		"build:tailwind": "TAILWIND_MODE=build NODE_ENV=production postcss ./tailwind.css --output ./_site/assets/css/styles.css",
+		"dev": "rm -rf ./_site && npm run dev:eleventy && npm run dev:tailwind",
+		"dev:eleventy": "npx @11ty/eleventy --input ./src/ --serve",
+		"dev:tailwind": "TAILWIND_MODE=watch NODE_ENV=development postcss ./tailwind.css --output ./_site/assets/css/styles.css --watch"
 	},
 	"repository": {
 		"type": "git",
@@ -18,12 +19,14 @@
 	"author": "Richard Herbert",
 	"homepage": "https://github.com/accessibleduffield/www#readme",
 	"devDependencies": {
-		"@11ty/eleventy": "^0.11.1",
+		"@11ty/eleventy": "^0.12.1",
+		"autoprefixer": "^10.2.5",
 		"dotenv": "^8.2.0",
-		"tailwindcss": "^2.0.1"
+		"postcss": "^8.2.10",
+		"postcss-cli": "^8.3.1",
+		"tailwindcss": "^2.1.1"
 	},
 	"dependencies": {
-		"autoprefixer": "^10.0.2",
-		"postcss": "^8.1.10"
+		"@sanity/client": "^2.0.9"
 	}
 }

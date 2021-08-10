@@ -1,0 +1,138 @@
+---
+pagination:
+    data: footpaths
+    size: 1
+    alias: footpath
+permalink: "footpaths/{{ footpath.number | slug }}/"
+---
+
+<div class="w-11/12 p-5 mx-auto mt-5 mb-5 bg-white rounded-xl sm:text-base md:text-xl"> <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
+		<div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
+			<div class="mt-4 ml-4">
+				<h3 class="text-3xl font-bold leading-6 text-gray-900">Footpath: {{ footpath.number }}</h3>
+
+				<p class="mt-1 text-sm text-gray-500">From {{ footpath.from }} to {{ footpath.to }}</p>
+			</div>
+
+			<div class="flex-shrink-0 mt-4 ml-4">
+				<a href="footpaths/">
+					<button type="button"
+						class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-lime-600 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500">
+						Back to Footpaths
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="border-t border-gray-200">
+		<dl>
+			<div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+				<dt class="text-sm font-medium text-gray-500">
+					Auditor
+				</dt>
+
+				<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+					{%- if footpath.auditor -%}{{ footpath.auditor}}{%- else -%}none{%- endif -%}
+				</dd>
+			</div>
+
+			{%- if footpath.auditDate -%}
+				<div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500">
+						Audit Date
+					</dt>
+
+					<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+						{{ footpath.auditDate | date: '%A, %e %B, %Y' }}
+					</dd>
+				</div>
+			{% endif %}
+
+
+			{% if footpath.attributes %}
+				<div class="px-4 py-5 bg-gray-50 bg-color-red-100 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500">
+						Attributes
+					</dt>
+
+					<dd class="text-sm text-gray-900 sm:col-span-2">
+						{%- for attribute in footpath.attributes -%}
+							<div class="mb-1"><span class="font-medium text-gray-500">{{ attribute.name }}:</span> {{ attribute.available }}</div>
+
+							{%- if attribute.comment != '' -%}
+								<div><span class="font-medium text-gray-500">Comments:</span> {{ attribute.comment }}</div>
+							{%- endif -%}
+
+							{%- if forloop.last == false -%}
+								<div class="w-full mt-5 mb-5 border-t border-gray-300"></div>
+							{%- endif -%}
+						{% endfor %}
+					</dd>
+				</div>
+			{% endif %}
+
+{%- comment -%} https://tailwindcomponents.com/component/alpinejs-tailwindcss-lightbox-modal {%- endcomment -%}
+
+			{% if footpath.photos %}
+				<div x-data="{ imgModal : false, imgModalSrc : '', imgModalDesc : '' }">
+					<template
+						@img-modal.window="imgModal = true; imgModalSrc = $event.detail.imgModalSrc; imgModalDesc = $event.detail.imgModalDesc;"
+						x-if="imgModal">
+						<div x-transition:enter="transition ease-out duration-300"
+							x-transition:enter-start="opacity-0 transform scale-90"
+							x-transition:enter-end="opacity-100 transform scale-100"
+							x-transition:leave="transition ease-in duration-300"
+							x-transition:leave-start="opacity-100 transform scale-100"
+							x-transition:leave-end="opacity-0 transform scale-90" x-on:click.away="imgModalSrc = ''"
+							class="fixed inset-0 z-50 flex items-center justify-center w-full p-2 overflow-hidden bg-black bg-opacity-75 h-100">
+							<div @click.away="imgModal = ''" class="flex flex-col max-w-3xl max-h-full overflow-auto">
+								<div class="z-50">
+									<button @click="imgModal = ''" class="float-right pt-2 pr-2 outline-none focus:outline-none">
+										<svg class="text-white fill-current " xmlns="https://www.w3.org/2000/svg" width="18" height="18"
+											viewBox="0 0 18 18">
+											<path
+												d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+											</path>
+										</svg>
+									</button>
+								</div>
+								<div class="p-2">
+									<img :alt="imgModalSrc" class="object-contain h-1/2-screen" :src="imgModalSrc">
+									<p x-text="imgModalDesc" class="text-center text-white"></p>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+
+				<div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500">
+						Photographs
+					</dt>
+
+					<dd x-data="{}" class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+						<ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+							{%- for photo in footpath.photos -%}
+								<li class="flex flex-col col-span-1 text-center bg-white divide-y divide-gray-200 rounded-lg shadow">
+									<div class="flex flex-col flex-1 p-8">
+										<a @click="$dispatch('img-modal', {  imgModalSrc: '{{ photo.url }}', imgModalDesc: '{{ photo.title }}' })" class="cursor-pointer">
+											<img alt="{{ photo.title }}" class="w-full object-fit" src="{{ photo.url }}">
+										</a>
+
+										<h3 class="mt-6 text-sm font-medium text-gray-900">{{ photo.title }}</h3>
+
+										<dl class="flex flex-col justify-between flex-grow mt-1">
+											<dt class="sr-only">Title</dt>
+											<dd class="text-sm text-gray-500">{{ photo.comment }}</dd>
+										</dl>
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+				</div>
+			{% endif %}
+		</dl>
+	</div>
+</div>

@@ -9,6 +9,11 @@ export default {
 			,type: 'string'
 		}
 		,{
+			title: 'Sub-title'
+			,name: 'subtitle'
+			,type: 'string'
+		}
+		,{
 			title: 'From location'
 			,name: 'fromLocation'
 			,type: 'string'
@@ -46,6 +51,13 @@ export default {
 			,of: [ { type: 'footpathPhotograph' } ]
 		}
 	]
+	,orderings: [ {
+		title: 'Footpath',
+		name: 'footpathNumberOrder',
+		by: [ {
+			field: 'footpathNumber', direction: 'asc'
+		} ]
+	} ]
 	,preview: {
 		select: {
 			from: 'fromLocation'

@@ -9,6 +9,12 @@ import footpathAttribute from './footpathAttribute'
 import footpathProperty from './footpathProperty'
 import footpathPhotograph from './footpathPhotograph'
 
+import venue from './venues/venue'
+import venueAttribute from './venues/attribute'
+import venueProperty from './venues/property'
+import venuePropertySection from './venues/propertySection'
+import venuePhotograph from './venues/photograph'
+
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema( {
 	// We name our schema
@@ -20,5 +26,11 @@ export default createSchema( {
 		,footpathAttribute
 		,footpathProperty
 		,footpathPhotograph
+
+		,venue
+		,venueAttribute
+		,venuePropertySection
+		,venueProperty
+		,venuePhotograph
 	] )
 } )

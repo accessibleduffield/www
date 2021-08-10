@@ -1,0 +1,125 @@
+---
+title: Footpaths
+description:
+---
+
+<div class="w-11/12 p-5 mx-auto mt-5 mb-5 bg-white rounded-xl sm:text-base md:text-xl">
+	<div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
+		<div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
+			<div class="mt-4 ml-4">
+				<h1>{{ title }}</h1>
+
+				<p>Our volunteers have assessed the public rights of way in the built-up areas of Duffield. Access has been assessed, noted and photographed. The rural field paths will be audited some time in the future.</p>
+
+				<h2>Audit of footpaths in Duffield</h3>
+
+				<p class="mt-1 text-sm text-gray-500">The following footpaths can be found in Duffield</p>
+			</div>
+		</div>
+
+		<div id="map" class="mt-4 h-96"></div>
+
+		<script>
+			var footpathMap = L.map( 'map' ).setView( [ 52.984, -1.489 ], 13 );
+
+			L.tileLayer(
+				'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				{
+					attribution: 'Map Tiles: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, CC-By-SA. Rights of Way: &copy; &amp; Database Right <a href="https://www.derbyshire.gov.uk/leisure/countryside/access/rights-of-way/downloads/public-rights-of-way-digital-data.aspx">Derbyshire County Council</a> &amp; Ordnance Survey, OGL3'
+				}
+			).addTo( footpathMap );
+
+// boundary from https://osm-boundaries.com/
+			fetch( '/assets/data/duffield-boundary.geojson' )
+				.then( response => response.json() )
+				.then( data => L.geoJSON(
+					data,
+					{
+						style: function( feature ) {
+							return {
+								weight : 2.0,
+								color: '#C87702',
+								opacity : 1.0,
+								fill : '#8b01c6',
+								fillOpacity : 0.1,
+							};
+						}
+					}
+				).addTo( footpathMap ) );
+
+// footpaths https://osm.mathmos.net/prow/progress/derbs/amber-valley/duffield.geojson
+			fetch( '/assets/data/duffield.geojson' )
+				.then( response => response.json() )
+				.then( data => L.geoJSON(
+					data,
+					{
+						style: function( feature ) {
+							return {
+								weight : 2.0,
+								color: '#8b01c6',
+								opacity : 1.0,
+								fill : 0,
+								fillOpacity : 0,
+							};
+						},
+
+						onEachFeature: function(feature, layer) {
+							var links = [];
+
+							feature.properties.number.split( '|' ).forEach( function( footpath ) {
+								links.push( `<a href="/footpaths/${ footpath }/" class="text-lg">Footpath ${ footpath }</a>` );
+							} );
+
+							if( links.length>0 ) {
+								layer.bindPopup( links.join( '<br />' ) );
+							}
+						}
+					}
+				).addTo( footpathMap ) );
+		</script>
+
+		<ul class="divide-y divide-gray-200">
+			{%- for footpath in footpaths -%}
+				<li>
+					<a href="footpaths/{{ footpath.number | slug }}" class="block hover:bg-gray-50">
+						<div class="flex items-center px-4 py-4 sm:px-6">
+							<div class="flex items-center flex-1 min-w-0">
+								<div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+									<div>
+										<p class="text-sm font-medium truncate text-lime-700">Footpath {{ footpath.number }}</p>
+
+										<p class="flex items-center mt-2 text-sm text-gray-500">
+											From {{ footpath.from }} to {{ footpath.to }}
+										</p>
+									</div>
+
+									{% if footpath.auditor %}
+										<div class="hidden md:block">
+											<div>
+												<p class="text-sm text-gray-900">
+													Audited by {{ footpath.auditor }}
+
+													{% if footpath.auditDate %}
+														on <time datetime="{{ footpath.auditDate }}">{{ footpath.auditDate | date: '%A, %e %B, %Y' }}</time>
+													{% endif %}
+												</p>
+											</div>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+
+							<div>
+								<svg class="w-5 h-5 text-gray-400" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 20 20"
+									fill="currentColor" aria-hidden="true">
+									<path fill-rule="evenodd"
+										d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+								</svg>
+							</div>
+						</div>
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
