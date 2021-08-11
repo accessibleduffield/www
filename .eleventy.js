@@ -17,6 +17,10 @@ module.exports = function( eleventyConfig ) {
 		console.log( 'dump:', anything );
 	} );
 
+	eleventyConfig.addShortcode( 'debug', (value) =>
+		`<pre style="padding: 10px; font-size: 14px; font-family: monospace;">debug: ${ JSON.stringify( value, null, 2 ) }</pre>`
+	);
+
 	eleventyConfig.setBrowserSyncConfig( {
 		ui: false
 		,ghostMode: false
