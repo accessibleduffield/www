@@ -11,7 +11,7 @@ const client = sanityClient( {
 } );
 
 module.exports = async function() {
-	const query = '*[ _type == "venue" ] | order( venue ) {..., "venueType":venueType->title, "attributes": venueAttributes[] { "title": property->title, yesNo, comment, "order": property->order, "section": property->propertySection->title }, "photos": footpathPhotos[] { title, "url": asset->url, comment }, "photos": venuePhotos[] { title, "url": asset->url, comment } }'
+	const query = '*[ _type == "venue" ] | order( venue ) {..., "venueType":venueType->title, "attributes": venueAttributes[] { "title": property->title, yesNo, comment, "order": property->order, "section": property->propertySection->title }, "photos": venuePhotos[] { title, "url": asset->url, comment } }'
 
 	return await client.fetch( query, {} )
 		.then( response => {
