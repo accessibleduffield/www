@@ -49,6 +49,12 @@ export default {
 			,description: 'https://www.example.com/'
 		}
 		,{
+			title: 'Email address'
+			,name: 'emailAddress'
+			,type: 'string'
+			,description: 'info@example.com'
+		}
+		,{
 			title: 'Date audited'
 			,name: 'auditDate'
 			,type: 'date'
@@ -75,6 +81,5 @@ export default {
 			,type: 'array'
 			,of: [ { type: 'venuePhotograph' } ]
 		}
-
 	]
 }
