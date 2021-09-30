@@ -8,9 +8,13 @@ description:
 
 	<p>The restaurants, cafes and pubs in Duffield are pleased to welcome everyone. This section covers their facilities in detail.</p>
 
-	{%- for venue in venues -%}
-		{%- if venue.type == 'Food and Drink' -%}
-			<a class="underline text-lime-700" href="venues/{{ venue.slug }}/">{{ venue.name }}</a>
-		{%- endif -%}
-	{%- endfor -%}
+	<ul>
+		{%- for venue in venues -%}
+			{%- if venue.type == 'Food and Drink' -%}
+			<li>
+				<a class="underline text-lime-700" href="venues/{{ venue.slug }}/">{{ venue.name }}</a>
+			</li>
+			{%- endif -%}
+		{%- endfor -%}
+	</ul>
 </div>

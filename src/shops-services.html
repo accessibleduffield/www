@@ -8,10 +8,13 @@ description:
 
 	<p>Our local Duffield shops are pleased to welcome everyone. Most of the shops are small with limited space. Some are in older buildings with some access issues. This section covers their facilities in detail.</p>
 
-	{%- for venue in venues -%}
-		{%- if venue.type == 'Shops and Services' -%}
-			<a class="underline text-lime-700" href="venues/{{ venue.slug }}/">{{ venue.name }}</a>
-		{%- endif -%}
-	{%- endfor -%}
-
+	<ul>
+		{%- for venue in venues -%}
+			{%- if venue.type == 'Shops and Services' -%}
+				<li>
+					<a class="underline text-lime-700" href="venues/{{ venue.slug }}/">{{ venue.name }}</a>
+				</li>
+			{%- endif -%}
+		{%- endfor -%}
+	</ul>
 </div>
