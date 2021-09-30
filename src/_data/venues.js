@@ -46,6 +46,7 @@ module.exports = async function() {
 					,address: record.address
 					,postcode: record.postcode
 					,website: record.website
+					,emailAddress: record.emailAddress
 					,slug: record.slug.current
 					,type: record.venueType
 					,attributes: attributes
